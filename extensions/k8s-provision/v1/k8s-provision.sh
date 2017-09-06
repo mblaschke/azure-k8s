@@ -8,20 +8,12 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 export DEBIAN_FRONTEND=noninteractive
 K8S_RUNTIME_CONFIG="batch/v2alpha1=true"
 
-# Sys upgrade
-apt-get update
-apt-get -y dist-upgrade
-
 # Enable alpha features
 if [[ -f /etc/kubernetes/manifests/kube-apiserver.yaml ]]; then
     JSONSP='        '
     sed -i '/\s*- "--runtime-config=.*$/d' /etc/kubernetes/manifests/kube-apiserver.yaml
     sed -i "/${JSONSP}- \"apiserver\"/c\\${JSONSP}- \"apiserver\"\n${JSONSP}- \"--runtime-config=$K8S_RUNTIME_CONFIG\"" /etc/kubernetes/manifests/kube-apiserver.yaml
 fi
-
-# Cleanup
-apt autoremove
-apt autoclean
 
 # Kernel config
 sed -i '/vm.max_map_count.*$/d' /etc/sysctl.conf
