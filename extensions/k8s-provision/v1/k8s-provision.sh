@@ -6,7 +6,7 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
 
 export DEBIAN_FRONTEND=noninteractive
-K8S_RUNTIME_CONFIG="batch/v2alpha1=true"
+K8S_RUNTIME_CONFIG="api/all=true"
 
 # Enable alpha features
 if [[ -f /etc/kubernetes/manifests/kube-apiserver.yaml ]]; then
