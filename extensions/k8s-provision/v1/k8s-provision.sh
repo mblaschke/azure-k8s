@@ -26,3 +26,4 @@ fi
 # Kernel config
 sed -i '/vm.max_map_count.*$/d' /etc/sysctl.conf
 echo "vm.max_map_count = 262144" >> /etc/sysctl.conf
+sysctl -p
