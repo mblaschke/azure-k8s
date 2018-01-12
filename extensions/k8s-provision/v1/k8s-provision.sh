@@ -10,11 +10,11 @@ K8S_RUNTIME_CONFIG="api/all=true"
 VNET_RG="f-we-core-vnet-rg"
 
 # Enable alpha features
-if [[ -f /etc/kubernetes/manifests/kube-apiserver.yaml ]]; then
-    JSONSP='        '
-    sed -i '/\s*- "--runtime-config=.*$/d' /etc/kubernetes/manifests/kube-apiserver.yaml
-    sed -i "/${JSONSP}- \"apiserver\"/c\\${JSONSP}- \"apiserver\"\n${JSONSP}- \"--runtime-config=$K8S_RUNTIME_CONFIG\"" /etc/kubernetes/manifests/kube-apiserver.yaml
-fi
+#if [[ -f /etc/kubernetes/manifests/kube-apiserver.yaml ]]; then
+#    JSONSP='        '
+#    sed -i '/\s*- "--runtime-config=.*$/d' /etc/kubernetes/manifests/kube-apiserver.yaml
+#    sed -i "/${JSONSP}- \"apiserver\"/c\\${JSONSP}- \"apiserver\"\n${JSONSP}- \"--runtime-config=$K8S_RUNTIME_CONFIG\"" /etc/kubernetes/manifests/kube-apiserver.yaml
+#fi
 
 # Set Vnet resource group
 if [[ -f /etc/kubernetes/azure.json ]]; then
