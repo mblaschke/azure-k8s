@@ -19,8 +19,8 @@ fi
 # Set Vnet resource group
 if [[ -f /etc/kubernetes/azure.json ]]; then
     JSONSP='    '
-    sed -i '/\s*"VnetResourceGroup":.*$/d' /etc/kubernetes/azure.json
-    sed -i "/${JSONSP}\"cloud\":\"AzurePublicCloud\",/c\\${JSONSP}\"cloud\":\"AzurePublicCloud\",\n${JSONSP}\"VnetResourceGroup\":\"${VNET_RG}\"," /etc/kubernetes/azure.json
+    sed -i '/\s*"vnetResourceGroup":.*$/d' /etc/kubernetes/azure.json
+    sed -i "/${JSONSP}\"cloud\":\"AzurePublicCloud\",/c\\${JSONSP}\"cloud\":\"AzurePublicCloud\",\n${JSONSP}\"vnetResourceGroup\":\"${VNET_RG}\"," /etc/kubernetes/azure.json
 fi
 
 # Kernel config
