@@ -27,3 +27,19 @@ fi
 sed -i '/vm.max_map_count.*$/d' /etc/sysctl.conf
 echo "vm.max_map_count = 262144" >> /etc/sysctl.conf
 sysctl -p
+
+
+# Docker self healing
+cat << EOF > /etc/systemd/system/docker-healthcheck.service
+[Unit]
+Description=Docker healthcheck
+
+[Service]
+ExecStart=/bin/bash -c "(timeout 5s docker ps > /dev/null) || (systemctl restart docker)"
+Restart=always
+RestartSec=30
+EOF
+
+systemctl daemon-reload
+systemctl enable docker-healthcheck
+systemctl restart docker-healthcheck
