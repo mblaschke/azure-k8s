@@ -24,8 +24,14 @@ if [[ -f /etc/kubernetes/azure.json ]]; then
 fi
 
 # Kernel config
+# max map count
 sed -i '/vm.max_map_count.*$/d' /etc/sysctl.conf
 echo "vm.max_map_count = 262144" >> /etc/sysctl.conf
+
+# dmesg restrict
+sed -i '/kernel.dmesg_restrict.*$/d' /etc/sysctl.conf
+echo "kernel.dmesg_restrict = 1" >> /etc/sysctl.conf
+
 sysctl -p
 
 
