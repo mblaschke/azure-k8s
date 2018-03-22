@@ -9,19 +9,16 @@ export DEBIAN_FRONTEND=noninteractive
 K8S_RUNTIME_CONFIG="api/all=true"
 VNET_RG="f-we-core-vnet-rg"
 
-# Enable alpha features
-#if [[ -f /etc/kubernetes/manifests/kube-apiserver.yaml ]]; then
-#    JSONSP='        '
-#    sed -i '/\s*- "--runtime-config=.*$/d' /etc/kubernetes/manifests/kube-apiserver.yaml
-#    sed -i "/${JSONSP}- \"apiserver\"/c\\${JSONSP}- \"apiserver\"\n${JSONSP}- \"--runtime-config=$K8S_RUNTIME_CONFIG\"" /etc/kubernetes/manifests/kube-apiserver.yaml
-#fi
-
 # Set Vnet resource group
 if [[ -f /etc/kubernetes/azure.json ]]; then
     JSONSP='    '
     sed -i '/\s*"vnetResourceGroup":.*$/d' /etc/kubernetes/azure.json
     sed -i "/${JSONSP}\"cloud\":\"AzurePublicCloud\",/c\\${JSONSP}\"cloud\":\"AzurePublicCloud\",\n${JSONSP}\"vnetResourceGroup\":\"${VNET_RG}\"," /etc/kubernetes/azure.json
 fi
+
+#############################
+# Kernel params
+#############################
 
 # Kernel config
 # max map count
@@ -34,6 +31,19 @@ echo "kernel.dmesg_restrict = 1" >> /etc/sysctl.conf
 
 sysctl -p
 
+
+#############################
+# OMS workaround
+#############################
+
+wget -O/root/docker-cimprov-1.0.0-31.universal.x86_64.sh https://github.com/Microsoft/Docker-Provider/releases/download/1.0.0-31/docker-cimprov-1.0.0-31.universal.x86_64.sh
+sh /root/docker-cimprov-1.0.0-31.universal.x86_64.sh --purge
+sh /root/docker-cimprov-1.0.0-31.universal.x86_64.sh --upgrade
+rm -f /root/docker-cimprov-1.0.0-31.universal.x86_64.sh
+
+#############################
+# Automatic health check
+#############################
 
 # Docker self healing
 cat << EOF > /etc/systemd/system/docker-healthcheck.service
