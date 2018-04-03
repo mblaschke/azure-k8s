@@ -42,6 +42,13 @@ sh /root/docker-cimprov-1.0.0-31.universal.x86_64.sh --upgrade
 rm -f /root/docker-cimprov-1.0.0-31.universal.x86_64.sh
 
 #############################
+# Docker > 1.12
+#############################
+
+echo "ExecStartPost=/sbin/iptables -P FORWARD ACCEPT" >> /etc/systemd/system/docker.service.d/exec_start.conf
+/sbin/iptables -P FORWARD ACCEPT
+
+#############################
 # Automatic health check
 #############################
 
