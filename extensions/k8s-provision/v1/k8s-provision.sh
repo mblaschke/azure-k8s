@@ -36,10 +36,10 @@ sysctl -p
 # OMS workaround
 #############################
 
-#wget -O/root/docker-cimprov-1.0.0-31.universal.x86_64.sh https://github.com/Microsoft/Docker-Provider/releases/download/1.0.0-31/docker-cimprov-1.0.0-31.universal.x86_64.sh
-#sh /root/docker-cimprov-1.0.0-31.universal.x86_64.sh --purge
-#sh /root/docker-cimprov-1.0.0-31.universal.x86_64.sh --upgrade
-#rm -f /root/docker-cimprov-1.0.0-31.universal.x86_64.sh
+wget -O/root/docker-cimprov-1.0.0-32.universal.x86_64.sh https://github.com/Microsoft/Docker-Provider/releases/download/1.0.0-32/docker-cimprov-1.0.0-32.universal.x86_64.sh
+sh /root/docker-cimprov-1.0.0-32.universal.x86_64.sh --purge
+sh /root/docker-cimprov-1.0.0-32.universal.x86_64.sh --upgrade
+rm -f /root/docker-cimprov-1.0.0-32.universal.x86_64.sh
 
 #############################
 # Docker > 1.12
