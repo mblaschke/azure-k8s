@@ -31,6 +31,13 @@ echo "kernel.dmesg_restrict = 1" >> /etc/sysctl.conf
 
 sysctl -p
 
+#############################
+# Auto update
+#############################
+
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+apt-get -y install \
+    unattended-upgrades
 
 #############################
 # OMS workaround
