@@ -35,9 +35,11 @@ sysctl -p
 # Auto update
 #############################
 
-echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+# enable auto update
+echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections
 apt-get -y install \
     unattended-upgrades
+dpkg-reconfigure -f noninteractive unattended-upgrades
 
 #############################
 # OMS workaround
